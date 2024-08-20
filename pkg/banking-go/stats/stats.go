@@ -1,0 +1,25 @@
+package stats
+
+import (
+	"github.com/Yessentemir256/banking-go/pkg/banking-go/types"
+)
+
+// Total рассчитывает сумму всех платежей.
+func Total(payments []types.Payment) types.Money {
+	sum := types.Money(0)
+	for _, payment := range payments {
+		if payment.Amount <= 0 {
+			continue
+		}
+		sum += payment.Amount
+	}
+	return sum
+}
+
+// Avg рассчитывает среднюю сумму платежа.
+func Avg(payments []types.Payment) types.Money {
+	sum := Total(payments)
+	lenght := len(payments)
+	avg := sum / types.Money(lenght)
+	return avg
+}
